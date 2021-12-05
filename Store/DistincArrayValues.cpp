@@ -7,23 +7,23 @@
 #include <iterator>
 
 using namespace std;
-//PassingCars
+//DistincArrayValues
 
 int solution(vector<int> &vec){
-    int sE = 0;
-    long long int s = 0;
-    for(int i = 0; i <vec.size(); i++){
-        if(vec[i] == 0) sE++;
-        if(vec[i] == 1) s += sE;
+    int res = 0;
+    sort(vec.begin(), vec.end());
+
+    for(int i = 0; i < vec.size(); i++){
+        if(vec[i] != vec[i+1]) 
+            res = vec[i];
     }
 
-    if(s > 1000000000) return -1;
-    return s;
+    return res;
 }
 
 int main() {
     std::cout << "Hello Easy C++ project!" << std::endl;
-    vector<int> P{0,1,0,1,1};
+    vector<int> P{2,1,1,2,3,1};
     auto res = solution(P);
 
     std::cout << "\nres : " << res;
