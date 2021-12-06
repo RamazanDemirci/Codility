@@ -7,7 +7,7 @@
 #include <iterator>
 
 using namespace std;
-//MaximumProductOfThree
+//DiscIntersections
 
 int solution(vector<int> &vec){
     if(vec.empty()) return 0;

@@ -8,7 +8,7 @@
 #include <stack>
 
 using namespace std;
-//Brackets ? Got 75/100 score
+//Brackets : Got 75/100 score
 
 int solution(string S){ 
     if(S.empty()) return 1;
