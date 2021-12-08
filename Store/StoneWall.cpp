@@ -9,7 +9,7 @@
 #include <queue>
 
 using namespace std;
-//StoneWall : submit later. not response codility
+//StoneWall : 100/100 score.
 
 int solution(vector<int> &H){
     int res = 0;

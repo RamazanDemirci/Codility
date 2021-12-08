@@ -9,24 +9,36 @@
 #include <queue>
 
 using namespace std;
-//Dominator : submit later. not response codility
+//Fish : not submit cause codility page not response kater submit. dont forget.
 
-int solution(vector<int> &A){
-    int res = -1;
+int solution(vector<int> &A, vector<int> &B){    
+    int res = 0;
+    stack<int> stack;
 
-    sort(A.begin(), A.end());
-    if(A[0] == A[A.size()/2] 
-    || A[A.size()] == A[A.size()/2]
-    || A[A.size()/4] == A[A.size()*3/4])
-        res = A[A.size()/2];
+    for(int i = 0; i < A.size(); i++){
+        int cur = A[i] * (B[i] == 1 ? -1 : 1);
+        if(cur < 0) 
+            stack.push(cur);
 
+        while(!stack.empty() && abs(stack.top()) < abs(cur)){
+            stack.pop();
+        }
+
+        if(stack.empty()) 
+            res++;
+     }
+    res += stack.size();
     return res;
 }
 
 int main() {
     std::cout << "Hello Easy C++ project!" << std::endl;
-    vector<int> H{3,4,3,2,3,3,-1,3,3};
-    auto res = solution(H);
+    vector<int> A{4,3,2,1,5};
+    vector<int> B{0,1,0,0,0};
+
+    // vector<int> A{4,8,11,9,13,15,18,16,14,17};
+    // vector<int> B{0,1,0,0,0,0,0,0,0,1};
+    auto res = solution(A,B);
 
     std::cout << "\nres : " << res;
 }

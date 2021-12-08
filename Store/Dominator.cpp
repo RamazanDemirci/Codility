@@ -9,16 +9,17 @@
 #include <queue>
 
 using namespace std;
-//Dominator : submit later. not response codility
+//Dominator : 75/100 got.
 
 int solution(vector<int> &A){
+    if(A.empty()) return -1;
+    if(A.size() == 1) return 0;
     int res = -1;
 
     sort(A.begin(), A.end());
-    if(A[0] == A[A.size()/2] 
-    || A[A.size()] == A[A.size()/2]
-    || A[A.size()/4] == A[A.size()*3/4])
-        res = A[A.size()/2];
+    if(A[A.size()/4] == A[A.size()/2] 
+    || A[A.size()/2] == A[A.size()*3/4])
+        res = A.size()/2;
 
     return res;
 }

@@ -9,7 +9,7 @@
 #include <queue>
 
 using namespace std;
-//Nesting : submit later not response codility
+//Nesting : 100/100 score.
 
 int solution(string S){    
     if(S.empty()) return 1;
