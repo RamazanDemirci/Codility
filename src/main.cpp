@@ -9,36 +9,32 @@
 #include <queue>
 
 using namespace std;
-//Fish : not submit cause codility page not response kater submit. dont forget.
+//MaxProfit : 100/100 got.
 
-int solution(vector<int> &A, vector<int> &B){    
-    int res = 0;
-    stack<int> stack;
-
+int solution(vector<int> &A){
+    if(A.empty()) return 0;
+    int minLeft=A[0], maxRight=0, maxProfit = 0;
+    
     for(int i = 0; i < A.size(); i++){
-        int cur = A[i] * (B[i] == 1 ? -1 : 1);
-        if(cur < 0) 
-            stack.push(cur);
-
-        while(!stack.empty() && abs(stack.top()) < abs(cur)){
-            stack.pop();
+        if(A[i]  < minLeft) {
+            minLeft = A[i];
+            maxRight = A[i];
         }
+        if(A[i] > maxRight){
+            maxRight = A[i];
+            if(maxRight - minLeft > maxProfit)
+                maxProfit = maxRight - minLeft;
+        }
+    }
 
-        if(stack.empty()) 
-            res++;
-     }
-    res += stack.size();
-    return res;
+    return maxProfit;
 }
 
 int main() {
     std::cout << "Hello Easy C++ project!" << std::endl;
-    vector<int> A{4,3,2,1,5};
-    vector<int> B{0,1,0,0,0};
+    vector<int> A{23171,21011,21123,21366,21013,21367};
 
-    // vector<int> A{4,8,11,9,13,15,18,16,14,17};
-    // vector<int> B{0,1,0,0,0,0,0,0,0,1};
-    auto res = solution(A,B);
+    auto res = solution(A);
 
     std::cout << "\nres : " << res;
 }
