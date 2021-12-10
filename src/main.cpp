@@ -12,52 +12,36 @@
 #include <map>
 
 using namespace std;
-//MaxDoubleSliceSum : 38/100 got. probably recursive not work for this question
-
-int getCurrentSum(vector<int> &vec, int x, int y, int z){
-    if(x+3 > vec.size()-1) return 0;
-    int localSum = 0, nestedSum = 0;
-    if(y == 0)
-        if(x + 3 < vec.size()-1) y = x + 3;
-        else y = x + 2;
-    if(z == 0) 
-        if(y + 3 < vec.size()) z = y + 3;
-        else z = y + 1;
-    
-    static std::map<int, int> memo;
-    int memoIndx = x+y+z;
-    if(memo.find(memoIndx) != memo.find(memoIndx)) return memo[memoIndx];
-    
-    if(z+1 < vec.size() )
-        nestedSum = getCurrentSum(vec, x, y, z+1);
-    else if(y+1 < vec.size()-1 )
-        nestedSum = getCurrentSum(vec, x, y+1, 0);
-    else if(x+1 < vec.size()-3 )
-        nestedSum = getCurrentSum(vec, x+1, 0, 0);
-    
-    if(x+1 < y-1){
-        localSum += vec[y-1];
-        while(x+1 < y-1){localSum += vec[++x]; }
-    }
-        
-    if(y+1 < z-1){
-        localSum += vec[z-1];
-        while(y+1 < z-1){localSum += vec[++y]; }
-    }
-
-    memo[memoIndx] = max(localSum, nestedSum);
-    
-    return memo[memoIndx];
-}
+//MaxDoubleSliceSum : 46/100 got. performance very bad. ı thınk about thıs later.
 
 int solution(vector<int> &A){
-    return getCurrentSum(A, 0, 0, 0);
+    int localSum = 0, maxSum = 0;
+    for(int x = 0; x < A.size()-3; x++){
+        for(int y = 2; y < A.size()-1; y++){
+            for(int z = 3; z < A.size(); z++){ 
+                localSum = 0;
+                localSum += A[x+1];
+                int xx=x+1;
+                int yy = y;
+                if(xx+1 < y && y < z){
+                    while(++xx < y){localSum += A[xx]; }
+                    while(++yy < z){localSum += A[yy]; }
+                }
+                maxSum = max(localSum, maxSum);
+            }
+        }
+    }
+    return maxSum;
 }
 
 int main() {
     std::cout << "Hello Easy C++ project!" << std::endl;
-    // vector<int> A{3,6,2,-1,4,5,-1,2};
-    vector<int> A{5, 17, 0, 3};
+    // vector<int> A{3,2,6,-1,4,5,-1,2};
+    // vector<int> A{5, 17, 0, 3};
+    // vector<int> A{-8, 10, 20, -5, -7, -4};
+    // vector<int> A{0, 10, -5, -2, 0};
+    
+    vector<int> A{6, 1, 5, 6, 4, 2, 9, 4};  // thıs ıs wrong result return. expected 26 but got 25.
 
     auto res = solution(A);
 
