@@ -12,7 +12,7 @@
 #include <map>
 
 using namespace std;
-//MaxDoubleSliceSum : 38/100 got. probably recursive not work for this question
+//MaxDoubleSliceSum : 38/100 got. probably recursive not work for this question.
 
 int getCurrentSum(vector<int> &vec, int x, int y, int z){
     if(x+3 > vec.size()-1) return 0;
