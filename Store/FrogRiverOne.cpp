@@ -2,27 +2,34 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
-#include <numeric>
 #include <climits>
+#include <map>
+#include <math.h>
+using namespace std;
+// FrogRiverOne : 100/100 got. 
 
-//Frog River One
 
-int solution(int X, std::vector<int> vec){
-    std::vector<int> B(X,-1);
+int solution(int X, vector<int> &A){
+    int sum = X*(X+1)/2;
+    vector<bool> visited(N+1, false);
 
-    for(int i = 0; i < vec.size(); i++){
-        if(vec[i] <= X && B[vec[i]-1] == -1) B[vec[i]-1] = i;
+    for(int i = 0; i < A.size(); i++){
+      auto val = A[i];
+      if(visited[val] == false)
+      {
+        visited[val] = true;
+        sum -= val;
+      }
+      if(sum == 0) return i;
     }
-    int max = 0;
-    for(int i = 0; i < B.size(); i++){
-        if(B[i] == -1) return -1;
-        if(max < B[i]) max = B[i];
-    }
-    return max;
+    return -1;
 }
 
 int main() {
     std::cout << "Hello Easy C++ project!" << std::endl;
-    auto res = solution(5,std::vector<int>{1,1,2,5,3,4,3});
-    std::cout << "\nres : " << res;
+    vector<int> vec = {1,3,1,4,2,3,5,4};
+    std::cout << "\nres : " << solution(5, vec) ;
 }
+
+
+
