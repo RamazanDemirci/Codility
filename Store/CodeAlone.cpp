@@ -5,30 +5,71 @@
 #include <climits>
 #include <map>
 #include <math.h>
-using namespace std;
-// CodeAlone : 0/100 got.  Fail 
+#include <stdio.h>
 
+using namespace std;
+// CodeAlone : ?/100.  I think this time it is done.  
+
+int getPatternChangeCount(vector<int> vec, vector<int> &items){
+    int changeCount = INT_MAX;
+    for(int i = 1; i < vec.size() - 1; i++){
+        int tmpChangeCount = vec[i] - vec[i-1] - 1;
+        tmpChangeCount += vec[i+1] - vec[i] - 1;
+        if(tmpChangeCount < changeCount){
+           changeCount = tmpChangeCount;
+           items.clear();
+           items.push_back(vec[i-1]);
+           items.push_back(vec[i]);
+           items.push_back(vec[i+1]); 
+        }
+    }
+    return changeCount;
+}
 
 int solution(string &S){
-    return 0;
+    vector<int> vecA, vecB;
+    
+    for(int i = 0; i < S.length(); i++){
+        if(S[i] == 'a')      vecA.push_back(i);
+        else if(S[i] == 'b') vecB.push_back(i);
+    }
+    
+    if(vecA.size() < 3 || vecB.size() < 3) return -1;
+
+    sort(vecA.begin(), vecA.end());
+    sort(vecB.begin(), vecB.end());
+    
+    vector<int> itemsA, itemsB;
+    int changeCountA = getPatternChangeCount(vecA, itemsA);
+    int changeCountB = getPatternChangeCount(vecB, itemsB);
+    
+    if(changeCountA != 0 && changeCountB != 0){
+        if(itemsA[2] > itemsB[0])
+            changeCountA -= 1;
+        else if(itemsB[2] > itemsA[0])
+            changeCountB -= 1;
+    }
+    
+    return changeCountA + changeCountB;
 }
 
 int main() {
     std::cout << "Hello Easy C++ project!" << std::endl;
     
-    string S = "aaabbb";
+    // string S = "aaabbb";
     // string S = "aababb";
     // string S = "abaabb";
     // string S = "baaabb";
+    // string S = "abbbaa";
     // string S = "ababab";
     // string S = "babbbaa";
     // string S = "bbbababaaab";
     // string S = "abbabb";
+    string S = "abbaaaaaaaaaaaaaaaaaaaaababaaaaabaaaaaaaaaaaab";
 
-    std::cout << "\nres : " << solution(S);
+    printf("\nres : '%s' : %d", S.c_str(), solution(S) );
     
 }
-
 
 
 /*
